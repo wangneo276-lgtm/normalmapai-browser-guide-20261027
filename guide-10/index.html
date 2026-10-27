@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="index,follow">
+    <meta name="description" content="How to turn a photo into a normal map in the browser with live 3D preview, then export maps for Unity, Unreal, Godot, and Blender.">
+    <title>Generate a Normal Map from a Photo in the Browser with Live 3D Preview Using NormalMapAI</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="page">
+      <article class="article">
+        <p class="eyebrow">NormalMapAI</p>
+        <h1>Generate a Normal Map from a Photo in the Browser with Live 3D Preview Using NormalMapAI</h1>
+        <h2>Understanding Normal Maps, Grayscale Height, and Mesh Displacement</h2>
+        <p>Creating realistic materials for 3D environments, architectural visualization, and games requires accurate surface maps. Transforming a flat photograph into a usable material involves distinct map types that convey how light interacts with surface geometry. <a href="https://normalmapai.com/">NormalMapAI</a> is a free browser tool that turns a photo into a normal map and shows a live 3D preview directly on screen. Unlike legacy desktop workflows that relied on discontinued Photoshop 3D filters, Materialize, or CrazyBump, this tool requires no install, no license key, and no project setup. It also avoids the limitations of basic one-off converters that only output a simple purple normal image without companion channels.</p>
+        <p>To construct materials accurately, artists must recognize the structural differences between surface calculation techniques:</p>
+        <ul>
+        <li><strong>Normal Maps:</strong> A normal map encodes XYZ surface slopes directly into RGB color channels. By storing directional angles across red (X), green (Y), and blue (Z) values, game engines and 3D renderers simulate complex lighting without extra geometric triangles.</li>
+        <li><strong>Bump and Height Maps:</strong> A bump or height map represents elevation purely through grayscale luminance, where light pixels denote height and dark pixels denote depth.</li>
+        <li><strong>Displacement Maps:</strong> A displacement map actively moves vertices of a 3D mesh. Because displacement alters physical geometry, it changes the outer silhouette of an object.</li>
+        </ul>
+        <h2>Local In-Browser Processing and Client-Side Privacy</h2>
+        <p>Modern web graphics standards allow texture generation to run directly on local client hardware. Within the <a href="https://normalmapai.com/">Free normal map generator with live 3D preview</a>, processing runs entirely inside the local browser session. Photos never leave the device and are not uploaded to an external server. This free local processing model requires no sign-up. Textures created there remain royalty-free for commercial games, archviz, VFX, and client projects, and you keep commercial rights to what you generate for games, renders, and products.</p>
+        <p>Under the hood, WebGL2 shaders drive maps up to 2048 px quickly on modern graphics hardware. If a browser lacks WebGL2 support, the application runs the generator and export on the CPU and Canvas. Creators can import standard raster images, including JPG, PNG, or WebP formats, by dropping a file or starting from built-in sample materials. Presets include stone, metal, wood, tile, concrete, leather, fabric, rust, brick, and grass, alongside Poly Haven CC0 samples representing rock wall, rusty metal, and wood planks.</p>
+        <h2>Practical Four-Step Workflow for Generating PBR Textures</h2>
+        <p>Converting a photo into a complete material follows the four practical steps on the page:</p>
+        <ol>
+        <li><strong>Upload or Pick a Sample:</strong> Drop your JPG, PNG, or WebP photograph into the browser, or select a built-in material or Poly Haven CC0 texture to begin.</li>
+        <li><strong>Optional Seamless Texture Step:</strong> Before finalizing maps, pass your image through an optional seamless step to blend edges, flatten lighting, and inspect tiling from 2×2 to 4×4 repetitions. The tileable PNG exports up to 4K before sending it into the PBR generator. You can also use the transparent PNG cutout feature to remove black or white backgrounds with threshold and feather controls, preview on a checkerboard, and export a PNG or hand the cutout to the normal generator for decals.</li>
+        <li><strong>Tune Maps in Live 3D:</strong> Adjust material properties while watching the real-time viewport. The workspace features sliders for normal, height, roughness, AO, metallic, and specular channels. You can adjust Normal Strength, Detail, and Height while keeping pre-blur low when sharpening brick, stone, or fabric.</li>
+        <li><strong>Download an Engine ZIP:</strong> Export an engine-named ZIP archive containing all generated maps, ready to connect to standard PBR shaders.</li>
+        </ol>
+        <h2>Real-Time 3D Viewport Controls and Material Channels</h2>
+        <p>Evaluating surface behavior requires dynamic lighting rather than static previews. The live 3D preview allows users to inspect materials across multiple preview models: shader ball, statue bust, sphere, cube, plane, cylinder, and torus. To evaluate how surfaces react to different lighting environments, artists can toggle between three lighting presets: Studio, Soft daylight, and Sunset.</p>
+        <p>As adjustments are made, the tool calculates multiple distinct channels:</p>
+        <ul>
+        <li><strong>Albedo:</strong> The base color image without baked lighting.</li>
+        <li><strong>Normal:</strong> Directional tangent-space vectors governing surface lighting.</li>
+        <li><strong>Height and Displacement:</strong> Surface elevation data exported as 16-bit PNG files for smooth displacement or 3D-print style height.</li>
+        <li><strong>Roughness:</strong> Grayscale values determining reflection blur.</li>
+        <li><strong>Ambient Occlusion (AO):</strong> Contact shadows in crevices.</li>
+        <li><strong>Metallic:</strong> Metal versus dielectric definition.</li>
+        <li><strong>Specular, Bump, and Curvature:</strong> Complementary channels describing shine, grayscale relief, and edge curvature.</li>
+        </ul>
+        <p>The site also features companion tools as named neighbors: seamless texture maker, transparent PNG cutout, PBR texture generator, bump map generator, displacement map generator, texture maker, normal map inverter (Y+/Y-), height to normal, normal to height, power-of-two resizer, AO / roughness / height / specular / metallic / curvature / glossiness / albedo generators, ORM packer, 3D print height map (16-bit), seamless texture checker, live 3D material editor, AI Texture Generator, AI 3D Texture Generator, and AI 3D Model Generator.</p>
+        <h2>Engine Export Presets and the OpenGL Versus DirectX Distinction</h2>
+        <p>Normal maps store green channel data to indicate whether vertical lighting tilts upward or downward. The tool categorizes these into two major industry standards:</p>
+        <ul>
+        <li><strong>OpenGL (+Y / Y+):</strong> The green channel encodes upward-facing surface normals. This standard is required by Blender, Godot 4, and Unity (URP and Built-in).</li>
+        <li><strong>DirectX (−Y / Y−):</strong> The green channel inverts vertical vectors downward. This standard is required by Unreal Engine and Unreal Engine 5.</li>
+        </ul>
+        <p>When exporting from the <a href="https://normalmapai.com/">Free Normal Map Generator Online</a>, users can select tailored engine export presets: Unity (URP / Built-in), Unreal Engine, Godot 4, Blender, and All maps (generic / three.js). Available export sizes are 512, 1024, 2048, and 4096 px, bundled in a ZIP named for the chosen engine.</p>
+        <p>The export presets pack channels the way each engine expects:</p>
+        <ul>
+        <li><strong>ORM Packing:</strong> Combines Ambient Occlusion, Roughness, and Metallic into RGB channels for Unreal Engine.</li>
+        <li><strong>MetallicSmoothness Packing:</strong> Formats maps for Unity, with R = Metallic and A = Smoothness (1 − roughness).</li>
+        <li><strong>16-Bit Grayscale:</strong> Height and displacement export as 16-bit PNG files to avoid stepping artifacts.</li>
+        </ul>
+        <p>These export presets support indie game props from phone photos of concrete, brick, or metal for Unity or Unreal prototypes; archviz floors and walls from wood, tile, and plaster; cutout decals; and Blender look-dev with a Principled BSDF set (base color, normal, roughness, metallic).</p>
+        <h2>Connecting Exported Maps in Blender's Principled BSDF</h2>
+        <p>Hooking up your generated textures in Blender follows the FAQ instructions:</p>
+        <ol>
+        <li>Export an OpenGL (Y+) PNG normal map or download the Blender ZIP.</li>
+        <li>In Blender's Shader Editor, add an Image Texture node and open your normal map.</li>
+        <li>Set the Color Space on the Image Texture node to Non-Color.</li>
+        <li>Add a Normal Map node set to Tangent Space, and connect the Color output of the Image Texture node to the Color input of the Normal Map node.</li>
+        <li>Connect the Normal output of the Normal Map node into the Normal input of the Principled BSDF node.</li>
+        <li>Connect companion maps: link Base Color to Base Color, Roughness to Roughness (Non-Color), and Metallic to Metallic (Non-Color).</li>
+        </ol>
+        <h2>Frequently Asked Questions</h2>
+        <h3>Which normal map format should I choose for Unity, Unreal Engine, Godot, and Blender?</h3>
+        <p>Blender, Unity (URP and Built-in), and Godot 4 use OpenGL (Y+) normal maps. Unreal Engine and Unreal Engine 5 require DirectX (Y-) normal maps. The export presets match that green channel orientation, including DirectX versus OpenGL.</p>
+        <h3>Are photos uploaded to an external server?</h3>
+        <p>No. Photos never leave the device and are not uploaded. All processing takes place locally in your browser using WebGL2 or CPU and Canvas.</p>
+        <h3>How are height and displacement maps exported?</h3>
+        <p>Height and displacement export as 16-bit PNG files, so displacement survives compression better than 8-bit gray maps. The same 16-bit height can be used for surface relief or 3D-print style height workflows.</p>
+        <h3>What is the channel layout for Unity MetallicSmoothness?</h3>
+        <p>In the MetallicSmoothness map in the engine ZIP, the Red channel stores Metallic (R = Metallic), and the Alpha channel stores Smoothness (A = Smoothness, calculated as 1 − roughness).</p>
+      </article>
+    </main>
+  </body>
+</html>
